@@ -1,8 +1,18 @@
 {
   "name": "FermTest",
   "version": "0.1.2",
+  "description": "A simple and easy to use and ES2015 compatible javascript test framework",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/Fermium-co/FermTest.git"
+  },
+  "main": "src/FermTest.js",
   "jspm": {
-    "directories": {},
+    "main": "FermTest.js",
+    "format": "es6",
+    "directories": {
+      "lib": "src"
+    },
     "devDependencies": {
       "babel": "npm:babel-core@^5.1.13",
       "babel-runtime": "npm:babel-runtime@^5.1.13",
