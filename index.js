@@ -18,13 +18,13 @@ class Calculator {
 	}
 }
 
-test('calculator', A1 => {
+test('calculator', assert1 => {
 	let calc = new Calculator();
 
-	A1.test('add', A2 => {
-		A2('should simply add two different numbers').be(calc.add(1, 2), 3);
+	assert1.test('add', assert2 => {
+		assert2('should simply add two different numbers').be(calc.add(1, 2), 3);
 
-		A2('should add two numbers', a => {
+		assert2('should add two numbers', a => {
 			// arrange
 			let num1 = 2;
 			let num2 = 7;
@@ -37,7 +37,7 @@ test('calculator', A1 => {
 			a.be(actual, expected);
 		});
 
-		A2('should add again', a => {
+		assert2('should add again', a => {
 			// arrange
 			let num1 = 1;
 			let num2 = 4;
@@ -50,12 +50,12 @@ test('calculator', A1 => {
 			a.be(actual, expected);
 		});
 
-		A2('add should fail', a => {
+		assert2('add should fail', a => {
 			a.be(calc.add(1, 2), 4);
 		});
 	});
 
-	A1.test('sub', A2 => {
+	assert1.test('sub', assert2 => {
 		// arrange
 		let num1 = 8;
 		let num2 = 3;
@@ -65,9 +65,9 @@ test('calculator', A1 => {
 		let actual = calc.sub(num1, num2);
 		
 		// assert
-		A2('should subtract two numbers').be(actual, expected);
+		assert2('should subtract two numbers').be(actual, expected);
 
-		A2('should subtract two real numbers', asserter => {
+		assert2('should subtract two real numbers', asserter => {
 			// arrange
 			let num1 = 85;
 			let num2 = 37;
@@ -80,11 +80,11 @@ test('calculator', A1 => {
 			asserter.be(actual, expected);
 		});
 
-		A2('should subtract two numbers realy fast', a => {
+		assert2('should subtract two numbers realy fast', a => {
 			a.be(calc.sub(1, 2), -1);
 		});
 
-		A2('should subtract two big numbers', a => {
+		assert2('should subtract two big numbers', a => {
 			let num1 = 850232216;
 			let num2 = 123245;
 
@@ -92,7 +92,7 @@ test('calculator', A1 => {
 		});
 	});
 
-	A1.test('mul', A2 => {
+	assert1.test('mul', assert2 => {
 		// arrange
 		let num1 = 3;
 		let num2 = 4;
@@ -102,14 +102,14 @@ test('calculator', A1 => {
 		let actual = calc.mul(num1, num2);
 		
 		// assert
-		A2('should multiply two numbers').be(actual, expected);
-		A2('should do multiply operation correctly for 1*2').be(calc.mul(1, 2), 2);
-		A2('should do multiply operation correctly for 2*2').be(calc.mul(2, 2), 4);
-		A2('should do multiply operation correctly for 3*2').be(calc.mul(3, 2), 6);
-		A2('should do multiply operation correctly for 4*2').be(calc.mul(4, 2), 8);
+		assert2('should multiply two numbers').be(actual, expected);
+		assert2('should do multiply operation correctly for 1*2').be(calc.mul(1, 2), 2);
+		assert2('should do multiply operation correctly for 2*2').be(calc.mul(2, 2), 4);
+		assert2('should do multiply operation correctly for 3*2').be(calc.mul(3, 2), 6);
+		assert2('should do multiply operation correctly for 4*2').be(calc.mul(4, 2), 8);
 	});
 
-	A1.test('div', A2 => {
+	assert1.test('div', assert2 => {
 		// arrange
 		let num1 = 18;
 		let num2 = 6;
@@ -119,6 +119,12 @@ test('calculator', A1 => {
 		let actual = calc.div(num1, num2);
 		
 		// assert
-		A2('should divide two numbers').be(actual, expected);
+		assert2('should divide two numbers').be(actual, expected);
+
+		assert2.test('big number division', assert3 => {
+			assert3('should divide level 1 big numbers!').be(calc.div(123456789, 123), 123456789 / 123);
+			assert3('should divide level 2 big numbers!').be(calc.div(987654321, 321), 987654321 / 321);
+			assert3('should divide level 3 big numbers!').be(calc.div(147852369, 312), 147852369 / 312);
+		});
 	});
 });
