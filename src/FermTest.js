@@ -4,8 +4,8 @@ import Test from './Test';
 import Runner from './Runner';
 import ConsoleReporter from './reporters/ConsoleReporter';
 
-import {be} from './asserters/be';
-import {equal} from './asserters/equal';
+import * as be from './asserters/be';
+import * as equal from './asserters/equal';
 
 export let allTests = [];
 export default (desc, fn) => {

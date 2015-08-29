@@ -18,16 +18,19 @@ export default class Test {
 		this.fn.call(this, this.getAsserter());
 		this.childTests.forEach(t => t.run());
 	}
-	
+
 	getAsserter() {
-		let asserter = (desc) => {
-			let asserter = new Asserter(desc);
+		let asserterFn = (desc, fn) => {
+			let asserter = new Asserter(desc, fn);
 			this.asserters.push(asserter);
+			if (fn && typeof fn === 'function') {
+				fn.call(this, asserter);
+			}
 			return asserter;
 		};
-		asserter.test = (desc, fn) => {
+		asserterFn.test = (desc, fn) => {
 			this.addChild(new Test(desc, fn));
 		};
-		return asserter;
+		return asserterFn;
 	}
 }

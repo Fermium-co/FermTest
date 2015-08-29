@@ -23,7 +23,8 @@ export default class ConsoleReporter extends Reporter {
 
 		let reportTests = tests => {
 			tests.forEach(t => {
-				console.info(t.desc);
+				let spaces = indents.join('');
+				console.info(spaces + t.desc);
 				showTestResults(t);
 				if (t.childTests.length > 0) {
 					indents.push("  ");
