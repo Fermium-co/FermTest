@@ -2,16 +2,20 @@
 
 export default class Asserter {
 	constructor(desc) {
-		this.desc = desc;
-		this.result = null;
+		this._desc = desc;
+		this._result = null;
+	}
+
+	get desc() {
+		return this._desc;
+	}
+
+	get result() {
+		return this._result;
 	}
 
 	toString() {
-		return this.desc + ' : ' + this.result;
-	}
-
-	equal(a, b) {
-		this.result = a == b;
+		return this._desc + ' : ' + this._result;
 	}
 
 }

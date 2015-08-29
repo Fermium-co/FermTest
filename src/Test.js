@@ -1,6 +1,6 @@
 "use strict";
 
-import Assert from './Assert';
+import Asserter from './Asserter'
 
 export default class Test {
 	constructor(desc, fn) {
@@ -10,13 +10,24 @@ export default class Test {
 		this.childTests = [];
 	}
 
-	add(test) {
+	addChild(test) {
 		this.childTests.push(test);
 	}
 
 	run() {
-		let assert = new Assert(this);
-		this.fn.call(this, assert.getAsserter());
+		this.fn.call(this, this.getAsserter());
 		this.childTests.forEach(t => t.run());
+	}
+	
+	getAsserter() {
+		let asserter = (desc) => {
+			let asserter = new Asserter(desc);
+			this.asserters.push(asserter);
+			return asserter;
+		};
+		asserter.test = (desc, fn) => {
+			this.addChild(new Test(desc, fn));
+		};
+		return asserter;
 	}
 }
