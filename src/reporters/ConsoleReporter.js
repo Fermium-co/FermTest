@@ -13,7 +13,7 @@ export default class ConsoleReporter extends Reporter {
 			if (a.result) {
 				ConsoleReporter.success(spaces + a.desc);
 			} else {
-				ConsoleReporter.fail(spaces + a.desc);
+				ConsoleReporter.fail(spaces + a.message);
 			}
 		};
 

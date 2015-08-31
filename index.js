@@ -14,6 +14,7 @@ class Calculator {
 	}
 
 	div(a, b) {
+		if (b == 0) throw new Error('divided by zero');
 		return a / b;
 	}
 }
@@ -126,5 +127,7 @@ test('calculator', assert1 => {
 			assert3('should divide level 2 big numbers!').be(calc.div(987654321, 321), 987654321 / 321);
 			assert3('should divide level 3 big numbers!').be(calc.div(147852369, 312), 147852369 / 312);
 		});
+
+		assert2('should throw an error on divided by zero').throw(() => calc.div(3, 0));
 	});
 });

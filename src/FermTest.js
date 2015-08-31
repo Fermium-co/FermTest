@@ -6,6 +6,7 @@ import ConsoleReporter from './reporters/ConsoleReporter';
 
 import * as be from './asserters/be';
 import * as equal from './asserters/equal';
+import * as throw_ from './asserters/throw';
 
 export let allTests = [];
 export default (desc, fn) => {
