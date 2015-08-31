@@ -5,47 +5,27 @@ export default class ConsoleReporter extends Reporter {
 		super(tests);
 	}
 
-	report() {
-		let indents = [];
-
-		let showAsserterResult = a => {
-			let spaces = indents.join('');
-			if (a.result) {
-				ConsoleReporter.success(spaces + a.desc);
-			} else {
-				ConsoleReporter.fail(spaces + a.message || a.desc);
-			}
-		};
-
-		let showTestResults = t => {
-			t.asserters.forEach(showAsserterResult);
-		};
-
-		let reportTests = tests => {
-			tests.forEach(t => {
-				let spaces = indents.join('');
-				console.info(spaces + t.desc);
-				showTestResults(t);
-				if (t.childTests.length > 0) {
-					indents.push("  ");
-					reportTests(t.childTests);
-					indents.pop();
-				}
-				if (indents.length == 0) {
-					console.log('==================================================');
-				}
-			});
-		};
-
-		reportTests(this.tests);
+	clear() {
+		console.clear();
 	}
 
-
-	static fail(text) {
-		console.log('%c' + text, 'color:red');
+	log(log) {
+		console.log(this.indents() + log);
 	}
 
-	static success(text) {
-		console.log('%c' + text, 'color:green');
+	info(log) {
+		console.info(this.indents() + log);
+	}
+
+	fail(log) {
+		console.log('%c' + this.indents() + log, 'color:red');
+	}
+
+	success(log) {
+		console.log('%c' + this.indents() + log, 'color:green');
+	}
+
+	indents() {
+		return new Array(this._indentCount + 1).join("  ");
 	}
 }

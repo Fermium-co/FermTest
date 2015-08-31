@@ -1,7 +1,7 @@
 import Asserter from '../Asserter';
 import utils from '../utils';
 
-Asserter.prototype.throw = function (a, b) {
+let throw_ = function(a, b) {
 	let isThrew = false;
 	let thrownError = undefined;
 
@@ -34,4 +34,8 @@ Asserter.prototype.throw = function (a, b) {
 		this.messge = 'The function thrown ' + thrownError + ' not ' + b;
 	}
 
-}
+};
+
+Asserter.prototype.throw = throw_;
+
+export default throw_;

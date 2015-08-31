@@ -1,4 +1,5 @@
-import test from './src/FermTest';
+import test, {run} from './src/FermTest';
+import HtmlReporter from './src/reporters/HtmlReporter';
 
 class Calculator {
 	add(a, b) {
@@ -131,3 +132,8 @@ test('calculator', assert1 => {
 		assert2('should throw an error on divided by zero').throw(() => calc.div(3, 0));
 	});
 });
+
+
+window.setTimeout(() => {
+	run(HtmlReporter);
+}, 0);
