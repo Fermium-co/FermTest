@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"target": "ES6",
+		"diagnostics": true,
+		"module": "system"
+	},
+	"exclude": [
+		"jspm_packages",
+		"node_modules",
+		"libs"
+	]
+}
