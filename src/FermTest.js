@@ -19,14 +19,14 @@ import undefined from './asserters/undefined';
 
 export let allTests = [];
 export default (desc, fn) => {
-	let test = new Test(desc, fn);
-	allTests.push(test);
+  let test = new Test(desc, fn);
+  allTests.push(test);
 }
 
 export function run(reporter) {
-	let runner = new Runner(allTests);
-	runner.run();
-	
-	let reporterInstance = new (reporter || ConsoleReporter)(allTests);
-	reporterInstance.report();
+  let runner = new Runner(allTests);
+  runner.run();
+
+  let reporterInstance = new (reporter || ConsoleReporter)(allTests);
+  reporterInstance.report();
 }

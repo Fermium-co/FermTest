@@ -1,10 +1,10 @@
 import Asserter from '../Asserter';
 
 let truthy = (a) => {
-	this.result = !!a;
-	if (!this.result) {
-		this.message = a + ' is not truthy';
-	}
+  this.result = !!a;
+  if (!this.result) {
+    this.message = a + ' is not truthy';
+  }
 };
 
 Asserter.prototype.truthy = truthy;

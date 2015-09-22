@@ -3,34 +3,48 @@
 import Asserter from './Asserter'
 
 export default class Test {
-	constructor(desc, fn) {
-		this.desc = desc;
-		this.fn = fn;
-		this.asserters = [];
-		this.childTests = [];
-	}
+  constructor(desc, fn) {
+    this.desc = desc;
+    this.fn = fn;
+    this.asserters = [];
+    this.childTests = [];
 
-	addChild(test) {
-		this.childTests.push(test);
-	}
+    this.result = null;
+    this.error = null;
+  }
 
-	run() {
-		this.fn.call(this, this.getAsserter());
-		this.childTests.forEach(t => t.run());
-	}
+  addChild(test) {
+    this.childTests.push(test);
+  }
 
-	getAsserter() {
-		let asserterFn = (desc, fn) => {
-			let asserter = new Asserter(desc, fn);
-			this.asserters.push(asserter);
-			if (fn && typeof fn === 'function') {
-				fn.call(this, asserter);
-			}
-			return asserter;
-		};
-		asserterFn.test = (desc, fn) => {
-			this.addChild(new Test(desc, fn));
-		};
-		return asserterFn;
-	}
+  run() {
+    try {
+      this.fn.call(this, this.getAsserterGenerator());
+      this.result = true;
+    } catch (e) {
+      this.result = false;
+      this.Error = e;
+    }
+    this.childTests.forEach(t => t.run());
+  }
+
+  getAsserterGenerator() {
+    let asserterFn = (desc, fn) => {
+      let asserter = new Asserter(desc, fn);
+      this.asserters.push(asserter);
+      if (fn && typeof fn === 'function') {
+        try {
+          fn.call(this, asserter);
+        } catch (e) {
+          asserter.result = false;
+          asserter.error = e;
+        }
+      }
+      return asserter;
+    };
+    asserterFn.test = (desc, fn) => {
+      this.addChild(new Test(desc, fn));
+    };
+    return asserterFn;
+  }
 }
