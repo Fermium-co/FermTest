@@ -6,7 +6,8 @@ let contain = (a, b) => {
   if (!this.result) {
     this.message = a + ' does not contain ' + b;
   }
-}
+};
+
 Asserter.prototype.contain = contain;
 
 export default contain;

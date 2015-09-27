@@ -58,6 +58,13 @@ test('calculator', assert1 => {
     assert2('add should fail', a => {
       a.be(calc.add(1, 2), 4);
     });
+    
+    assert2('add should not fail', a => {
+      a.no.be(calc.add(1, 2), 4);
+    });
+    assert2('add should fail again', a => {
+      a.no.be(calc.add(1, 2), 3);
+    });
   });
 
   assert1.test('sub', assert2 => {
@@ -138,6 +145,6 @@ test('calculator', assert1 => {
 
 
 window.setTimeout(() => {
-  //run(HtmlReporter);
-  run(ConsoleReporter);
+  run(HtmlReporter);
+  //run(ConsoleReporter);
 }, 0);

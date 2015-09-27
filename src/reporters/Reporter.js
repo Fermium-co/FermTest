@@ -1,3 +1,5 @@
+import ExceptionHelper from './ExceptionHelper';
+
 export default class Reporter {
   constructor(tests) {
     this.tests = tests;
@@ -28,7 +30,7 @@ export default class Reporter {
     if (test.result) {
       test.asserters.forEach(a => this.showAsserterResult(a));
     } else {
-      this.fail(test.error);
+      test.error && this.fail(ExceptionHelper.getMessage(test.error));
     }
   }
 
@@ -36,9 +38,18 @@ export default class Reporter {
     this._indentCount++;
     if (asserter.result) {
       this.success(asserter.desc);
+    } else if (asserter.result === null) {
+      if (asserter.no.result !== null) {
+        this._indentCount--;
+        this.showAsserterResult(asserter.no);
+        this._indentCount++;
+      } else {
+        this.info('assert has no result!');
+      }
     } else {
-      this.fail(asserter.message || asserter.desc);
-      asserter.error && this.fail(asserter.error);
+      this.fail(asserter.desc);
+      asserter.message && this.fail(asserter.message);
+      asserter.error && this.fail(ExceptionHelper.getMessage(asserter.error));
     }
     this._indentCount--;
   }
