@@ -5,6 +5,11 @@ export default class HtmlReporter extends Reporter {
     super(tests);
   }
 
+  formatErrorStack(stack) {
+    var regEx = new RegExp('\n', 'g');
+    return stack.replace(regEx, '<br>');
+  }
+
   clear() {
     document.documentElement.innerHTML = "";
     document.write('<br>');

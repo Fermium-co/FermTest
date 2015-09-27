@@ -30,7 +30,7 @@ export default class Reporter {
     if (test.result) {
       test.asserters.forEach(a => this.showAsserterResult(a));
     } else {
-      test.error && this.fail(ExceptionHelper.getMessage(test.error));
+      test.error && this.fail(this.getError(test.error));
     }
   }
 
@@ -49,11 +49,17 @@ export default class Reporter {
     } else {
       this.fail(asserter.desc);
       asserter.message && this.fail(asserter.message);
-      asserter.error && this.fail(ExceptionHelper.getMessage(asserter.error));
+      asserter.error && this.fail(this.showError(asserter.error));
     }
     this._indentCount--;
   }
 
+  showError(error) {
+    this.fail(ExceptionHelper.getMessage(error));
+    this.fail(this.formatErrorStack(ExceptionHelper.getStack(error)));
+  }
+
+  formatErrorStack(stack) { return stack; }
   clear() { }
   log(log) { }
   info(log) { }

@@ -145,6 +145,6 @@ test('calculator', assert1 => {
 
 
 window.setTimeout(() => {
-  run(HtmlReporter);
-  //run(ConsoleReporter);
+  //run(HtmlReporter);
+  run(ConsoleReporter);
 }, 0);
