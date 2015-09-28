@@ -2,9 +2,12 @@ import Asserter from '../Asserter';
 import utils from '../utils';
 
 let equal = (a, b) => {
-  this.result = utils.equals(a, b);
-  if (!this.result) {
-    this.message = a + ' is not equalt to ' + b;
+  let result = utils.equals(a, b);
+  this.setResult(result);
+  if (this.isNo && result) {
+    this.setMessage(a + ' is equalt to ' + b);
+  } else if (!result) {
+    this.setMessage(a + ' is not equalt to ' + b);
   }
 };
 

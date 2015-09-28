@@ -1,9 +1,12 @@
 import Asserter from '../Asserter';
 
-let nan = (a) => {
-  this.result = a !== a;
-  if (!this.result) {
-    this.message = a + ' is not NaN';
+let nan = value => {
+  let result = value !== value;
+  this.setResult(result);
+  if (this.isNo && result) {
+    this.setMessage(value + ' is NaN');
+  } else if (!result) {
+    this.setMessage(value + ' is not NaN');
   }
 };
 

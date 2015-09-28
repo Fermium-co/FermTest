@@ -1,9 +1,12 @@
 import Asserter from '../Asserter';
 
-let null_ = (a) => {
-  this.result = a === null;
-  if (!this.result) {
-    this.message = a + ' is not null';
+let null_ = value => {
+  let result = value === null;
+  this.setResult(result);
+  if (this.isNo && result) {
+    this.setMessage(value + ' is null');
+  } else if (!result) {
+    this.setMessage(value + ' is not null');
   }
 };
 

@@ -2,9 +2,12 @@ import Asserter from '../Asserter';
 import utils from '../utils';
 
 let contain = (a, b) => {
-  this.result = utils.contains(a, b);
-  if (!this.result) {
-    this.message = a + ' does not contain ' + b;
+  let result = utils.contains(a, b);
+  this.setResult(result);
+  if (this.isNo && result) {
+    this.setMessage(a + ' contains ' + b);
+  } else if (!result) {
+    this.setMessage(a + ' does not contain ' + b);
   }
 };
 

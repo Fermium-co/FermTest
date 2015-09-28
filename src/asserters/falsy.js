@@ -1,9 +1,12 @@
 import Asserter from '../Asserter';
 
-let falsy = (a) => {
-  this.result = !!!a;
-  if (!this.result) {
-    this.message = a + ' is not falsy';
+let falsy = value => {
+  let result = !!!value;
+  this.setResult(result);
+  if (this.isNo && result) {
+    this.setMessage(value + ' is falsy');
+  } else if (!result) {
+    this.setMessage(value + ' is not falsy');
   }
 };
 

@@ -1,5 +1,8 @@
 // proudly borrowed from [jasmine repository](https://github.com/jasmine/jasmine/blob/master/src/core/matchers/matchersUtil.js);
 export default {
+  isFunc: value => {
+    return value instanceof Function;
+  },
   equals: function (a, b, customTesters) {
     customTesters = customTesters || [];
 

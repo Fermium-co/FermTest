@@ -1,9 +1,12 @@
 import Asserter from '../Asserter';
 
 let greater = (a, b) => {
-  this.result = a > b;
-  if (!this.result) {
-    this.message = a + ' is not greater than ' + b;
+  let result = a > b;
+  this.setResult(result);
+  if (this.isNo && result) {
+    this.setMessage(a + ' is greater than ' + b);
+  } else if (!result) {
+    this.setMessage(a + ' is not greater than ' + b);
   }
 };
 

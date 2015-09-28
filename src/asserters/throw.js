@@ -1,38 +1,46 @@
 import Asserter from '../Asserter';
 import utils from '../utils';
 
-let throw_ = function (a, b) {
+let throw_ = function (fn, error) {
   let isThrew = false;
   let thrownError = undefined;
 
-  this.result = false;
+  let result = false;
+  let message = '';
 
-  if (!(a instanceof Function)) {
+  if (!utils.isFunc(fn)) {
     throw new Error('first parameter must be a function');
   }
 
   try {
-    a();
+    fn();
   } catch (e) {
     isThrew = true;
     thrownError = e;
   }
 
-  if (!isThrew) {
-    this.message = 'The function did not throw';
-    return;
-  }
-
-  if (arguments.length == 1) {
-    this.result = true;
-    return;
-  }
-
-  if (utils.equals(b, thrownError)) {
-    this.result = true;
+  if (isThrew && this.isNo) {
+    message = 'The function did throw';
+  } else if (!isThrew && !this.isNo) {
+    message = 'The function did not throw';
+  } else if (arguments.length == 1) {
+    result = true;
+  } else if (utils.equals(error, thrownError)) {
+    if (this.isNo) {
+      message = 'The function thrown ' + error;
+    } else {
+      result = true;
+    }
   } else {
-    this.messge = 'The function thrown ' + thrownError + ' not ' + b;
+    if (this.isNo) {
+      result = true;
+    } else {
+      message = 'The function thrown ' + thrownError + ' not ' + error;
+    }
   }
+
+  this.setResult(result);
+  this.setMessage(message);
 
 };
 
