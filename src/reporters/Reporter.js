@@ -49,14 +49,16 @@ export default class Reporter {
     } else {
       this.fail(asserter.desc);
       asserter.message && this.fail(asserter.message);
-      asserter.error && this.fail(this.showError(asserter.error));
+      asserter.error && this.showError(asserter.error);
     }
     this._indentCount--;
   }
 
   showError(error) {
-    this.fail(ExceptionHelper.getMessage(error));
+    this._indentCount++;
+    //this.fail(ExceptionHelper.getMessage(error));
     this.fail(this.formatErrorStack(ExceptionHelper.getStack(error)));
+    this._indentCount--;
   }
 
   formatErrorStack(stack) { return stack; }

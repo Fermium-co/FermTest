@@ -10,22 +10,27 @@ export default class ConsoleReporter extends Reporter {
   }
 
   log(log) {
-    console.log(this.indents() + log);
+    console.log(this.fixIndents(log));
   }
 
   info(log) {
-    console.info(this.indents() + log);
+    console.info(this.fixIndents(log));
   }
 
   fail(log) {
-    console.log('%c' + this.indents() + log, 'color:red');
+    console.log('%c' + this.fixIndents(log), 'color:red');
   }
 
   success(log) {
-    console.log('%c' + this.indents() + log, 'color:green');
+    console.log('%c' + this.fixIndents(log), 'color:green');
   }
 
   indents() {
     return new Array(this._indentCount + 1).join("  ");
+  }
+
+  fixIndents(value) {
+    let spaces = this.indents();
+    return spaces + value.replace(/\n/g, '\n' + spaces);
   }
 }

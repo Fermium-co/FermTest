@@ -16,34 +16,36 @@ export default class HtmlReporter extends Reporter {
   }
 
   log(log) {
-    document.write(this.indents() + log + '<br>');
+    document.write(this.fixIndents(log) + '<br>');
   }
 
   info(log) {
-    //this.log(log);
     let div = document.createElement('div');
     div.style.color = 'blue';
-    div.innerHTML = this.indents() + log;
+    div.innerHTML = this.fixIndents(log);
     document.body.appendChild(div);
   }
 
   fail(log) {
-    //this.log(log);
     let div = document.createElement('div');
     div.style.color = 'red';
-    div.innerHTML = this.indents() + log;
+    div.innerHTML = this.fixIndents(log);
     document.body.appendChild(div);
   }
 
   success(log) {
-    //this.log(log);
     let div = document.createElement('div');
     div.style.color = 'green';
-    div.innerHTML = this.indents() + log;
+    div.innerHTML = this.fixIndents(log);
     document.body.appendChild(div);
   }
 
   indents() {
     return new Array(this._indentCount + 1).join("&nbsp;&nbsp;");
+  }
+  
+  fixIndents(value) {
+    let spaces = this.indents();
+    return spaces + value.replace(/<br>/g, '<br>' + spaces);
   }
 }
